@@ -1,10 +1,11 @@
+import java.time.LocalDate;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         task1();
         task2();
         task3();
-
-
     }
 
     public static void printSeparator() {
@@ -23,46 +24,47 @@ public class Main {
             System.out.println("Установите облегченную версию приложения для IOS по ссылке");
         } else if (operatingSystem == 1 && clientDeviceYear < 2015) {
             System.out.println("Установите облегченную версию приложения для Android по ссылке");
-
         }
     }
 
-    public static void checkYear(int year) {
-        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+    public static void printIsLeapYear(int year) {
+        boolean yearIsLeap = checkYear(year);
+        if (yearIsLeap) {
             System.out.println(year + " год является високосным");
         } else {
             System.out.println(year + " год не является високосным");
         }
     }
-    public static void checkDistance (int deliveryDistance) {
-        if (deliveryDistance <= 20) {
-            int days = 1;
-            System.out.println("Доставка в пределах 20 км занимает " + days + " сутки.");
-        }
-        if (deliveryDistance > 20 && deliveryDistance <= 60) {
-            int days = 2;
-            System.out.println("Доставка в пределах 60 км занимает " + days + " суток.");
-        } else if (deliveryDistance > 60 && deliveryDistance <= 100) {
-            int days = 3;
-            System.out.println("Доставка в пределах 100 км занимает " + days + " суток.");
-
-        } else if (deliveryDistance > 100){
-            System.out.println("Доставки нет");
-        }
+    public static boolean checkYear(int year) {
+        return year % 4 == 0 && year % 100 != 0 || (year % 400 == 0);
     }
 
     public static void task1() {
-        System.out.println("Задача 1");
-        int year = 2024;
-        checkYear(year);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Выберите метод : \n1. Високосный год \n2. Проверка устройства ");
+            var type = scanner.nextInt();
+            switch (type) {
+                case 1:
+                    System.out.println("Введите год: ");
+                    var year = scanner.nextInt();
+                    checkYear(year);
+                    printIsLeapYear(year);
+                    break;
+                case 2:
+                    System.out.println("Введите OS: ");
+                    var operatingSystem = scanner.nextInt();
+                    int clientDeviceYear = LocalDate.now().getYear();
+                    checkDevice(operatingSystem, clientDeviceYear);
+                    break;
+            }
+        }
     }
+
 
     public static void task2() {
         System.out.println("Задача 2");
-        int operatingSystem = 1;
-        int clientDeviceYear = 2013;
-        checkDevice(operatingSystem, clientDeviceYear);
-
+        int clientDeviceYear = LocalDate.now().getYear();
     }
 
     public static void task3() {
@@ -71,7 +73,6 @@ public class Main {
         checkDistance(deliveryDistance);
 
     }
-
 
     public static void task4() {
 
@@ -103,4 +104,24 @@ public class Main {
 
     }
 
+
+    public static void checkDistance(int deliveryDistance) {
+        if (deliveryDistance <= 20) {
+            int days = 1;
+            System.out.println("Доставка в пределах 20 км занимает " + days + " сутки.");
+        }
+        if (deliveryDistance > 20 && deliveryDistance <= 60) {
+            int days = 2;
+            System.out.println("Доставка в пределах 60 км занимает " + days + " суток.");
+        } else if (deliveryDistance > 60 && deliveryDistance <= 100) {
+            int days = 3;
+            System.out.println("Доставка в пределах 100 км занимает " + days + " суток.");
+
+        } else if (deliveryDistance > 100) {
+            System.out.println("Доставки нет");
+        }
+    }
 }
+
+
+
